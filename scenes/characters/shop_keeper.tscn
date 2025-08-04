@@ -1,0 +1,65 @@
+[gd_scene load_steps=11 format=3 uid="uid://h5samxaffugb"]
+
+[ext_resource type="PackedScene" uid="uid://1j3s14q2krsk" path="res://scenes/characters/character.tscn" id="1_vduqe"]
+[ext_resource type="Script" uid="uid://cnygi5rps7te3" path="res://scenes/characters/shop_keeper.gd" id="2_bp5gg"]
+[ext_resource type="Texture2D" uid="uid://dgjanu6tes8xn" path="res://assets/shopkeeper_bow1.png" id="2_yu2uq"]
+[ext_resource type="Texture2D" uid="uid://dgd2i5pjw2oll" path="res://assets/shopkeeper_bow2.png" id="3_h34lu"]
+[ext_resource type="Texture2D" uid="uid://jpux6ub0ihww" path="res://assets/shopkeeper_idle1.png" id="4_bp5gg"]
+[ext_resource type="Texture2D" uid="uid://dmca53limqmtq" path="res://assets/shopkeeper_idle2.png" id="5_dlr2x"]
+[ext_resource type="Texture2D" uid="uid://buupnoa02nc7r" path="res://assets/shopkeeper_walk1.png" id="6_x5o6o"]
+[ext_resource type="Texture2D" uid="uid://dy1xp3envm4eh" path="res://assets/shopkeeper_walk2.png" id="7_sekg7"]
+[ext_resource type="Script" uid="uid://kbg67riqx4gt" path="res://scenes/characters/anger_level.gd" id="8_h34lu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xlntm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_yu2uq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_h34lu")
+}],
+"loop": true,
+"name": &"bow",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_bp5gg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dlr2x")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_x5o6o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_sekg7")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="ShopKeeper" instance=ExtResource("1_vduqe")]
+script = ExtResource("2_bp5gg")
+
+[node name="Assets" parent="." index="2"]
+scale = Vector2(2, 1.5)
+
+[node name="Body" parent="Assets" index="0"]
+sprite_frames = SubResource("SpriteFrames_xlntm")
+
+[node name="AngerLevel" type="Node2D" parent="." index="6"]
+script = ExtResource("8_h34lu")
+
+[node name="ChillTimer" type="Timer" parent="AngerLevel" index="0"]
+one_shot = true
+
+[connection signal="timeout" from="AngerLevel/ChillTimer" to="AngerLevel" method="_on_chill_timer_timeout"]
+[connection signal="got_interrupted" from="Speak" to="AngerLevel" method="_on_speak_got_interrupted"]

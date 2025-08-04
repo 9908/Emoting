@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=3 uid="uid://b8vfhvkrp1n7y"]
+
+[ext_resource type="Script" uid="uid://fuvoh6j6msv6" path="res://scenes/VFX/bubble.gd" id="1_gcc1x"]
+[ext_resource type="Texture2D" uid="uid://bo51yxmmko4kq" path="res://assets/player_mouth1.png" id="1_gkhmi"]
+[ext_resource type="Texture2D" uid="uid://d322lyshi5e40" path="res://assets/bubble_explode1.png" id="3_mme6p"]
+[ext_resource type="Texture2D" uid="uid://5aym0oe2sg6e" path="res://assets/bubble_explode2.png" id="4_gfrak"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n76s8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gkhmi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_mme6p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gfrak")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_gcc1x"]
+resource_name = "fade_out"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Asset:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6015k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Asset:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mme6p"]
+_data = {
+&"RESET": SubResource("Animation_6015k"),
+&"fade_out": SubResource("Animation_gcc1x")
+}
+
+[node name="Bubble" type="Node2D"]
+script = ExtResource("1_gcc1x")
+
+[node name="Asset" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_n76s8")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_mme6p")
+}
+
+[connection signal="animation_finished" from="Asset" to="." method="_on_asset_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

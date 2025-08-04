@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://rhckq1jb0n7y"]
+
+[ext_resource type="PackedScene" uid="uid://1j3s14q2krsk" path="res://scenes/characters/character.tscn" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://6cxrva4g2dau" path="res://scenes/characters/player.gd" id="2_g2els"]
+
+[node name="Player" groups=["player"] instance=ExtResource("1_3vyb7")]
+script = ExtResource("2_g2els")
+speed = 400.0

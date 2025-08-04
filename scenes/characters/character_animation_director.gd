@@ -1,0 +1,35 @@
+extends Node2D
+
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var assets: Node2D = $"../Assets"
+@onready var mouth: AnimatedSprite2D = $"../Assets/Eyes/Mouth"
+
+var playing_custom_animation: bool = false
+
+func _ready() -> void:
+	mouth.hide()
+
+
+func _process(delta: float) -> void:
+	if not playing_custom_animation:
+		if owner.velocity.length() < 20:
+			animation_player.play("Idle")
+		else:
+			animation_player.play("Walk")
+	
+	if not owner.velocity.x == 0 and owner.velocity.length() > 20:
+		assets.scale.x = -sign(owner.velocity.x)
+		
+	
+
+func bow():
+	if playing_custom_animation: 
+		return
+	
+	playing_custom_animation = true
+	animation_player.play("Bow")
+	
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "Bow":
+		playing_custom_animation = false
