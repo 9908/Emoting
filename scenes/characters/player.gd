@@ -1,16 +1,19 @@
 extends Chara
 
+@export var can_be_controlled: bool = true
 @export var speed: float = 400.0
 var bump_velocity: Vector2 = Vector2.ZERO
+@onready var victory: Node2D = $Victory
+@onready var broom_victory: Sprite2D = $Victory/BroomVictory
 
 
 func _ready() -> void:
 	Globals.player = self
-	
+	victory.hide()
 
 func _physics_process(delta: float) -> void:
 	var direction = Vector2.ZERO
-	if not animation_director.playing_custom_animation and bump_velocity.length() < 100:
+	if not animation_director.playing_custom_animation and bump_velocity.length() < 100 and can_be_controlled:
 		if Input.is_action_pressed("ui_right"):
 			direction.x += 1
 		elif Input.is_action_pressed("ui_left"):
@@ -37,5 +40,16 @@ func _physics_process(delta: float) -> void:
 		speak.stop_speak()
 
 
+func get_broom():
+	victory.show()
+	can_be_controlled = false
+	look_at.look_up()
+	await get_tree().create_timer(2.0).timeout
+	Globals.fade.fade(1.0, 3.0, Color.WHITE)
+	await get_tree().create_timer(3.0).timeout
+	Globals.fade.fade(0.0, 1.0, Color.WHITE)
+	Globals.main.game_win.show()
+	
+	
 func bump(character):
 	bump_velocity = 1000*character.global_position.direction_to(global_position)

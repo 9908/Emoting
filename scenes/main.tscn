@@ -1,19 +1,254 @@
-[gd_scene load_steps=9 format=3 uid="uid://8opw0gvipje3"]
+[gd_scene load_steps=12 format=3 uid="uid://8opw0gvipje3"]
 
 [ext_resource type="Script" uid="uid://dfbigpfb5pbbj" path="res://scenes/main.gd" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://rhckq1jb0n7y" path="res://scenes/characters/player.tscn" id="1_o5qli"]
-[ext_resource type="Texture2D" uid="uid://tsr81fuppmev" path="res://assets/bg.png" id="2_0wfyh"]
-[ext_resource type="PackedScene" uid="uid://h5samxaffugb" path="res://scenes/characters/shop_keeper.tscn" id="2_sugp2"]
-[ext_resource type="Script" uid="uid://nved5dnjshjq" path="res://scenes/dialogue_manager.gd" id="3_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://cgxg3porm0xdy" path="res://assets/intro_dream.png" id="2_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://6fbo5ww2tfxp" path="res://assets/eyes_socket_rage4.png" id="4_tbgi4"]
+[ext_resource type="Script" uid="uid://c14kpngbw0007" path="res://scenes/VFX/fade.gd" id="5_tbgi4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5qli"]
-size = Vector2(59, 1090)
+[sub_resource type="Animation" id="Animation_o6xl0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
-size = Vector2(59, 1845.5)
+[sub_resource type="Animation" id="Animation_tefeu"]
+resource_name = "new_animation"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 5), Vector2(0, 0)]
+}
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
-size = Vector2(59, 870.132)
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tipki"]
+_data = {
+&"RESET": SubResource("Animation_o6xl0"),
+&"new_animation": SubResource("Animation_tefeu")
+}
+
+[sub_resource type="Animation" id="Animation_tbgi4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IntroDream8:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("IntroDream7:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("IntroDream6:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("IntroDream5:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("IntroDream4:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("IntroDream3:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("IntroDream2:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("IntroDream:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_jyhfs"]
+resource_name = "intro"
+length = 9.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IntroDream8:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("IntroDream7:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5, 6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("IntroDream6:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3.5, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("IntroDream5:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 3, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("IntroDream4:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2.5, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("IntroDream3:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("IntroDream2:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("IntroDream:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tefeu"]
+_data = {
+&"RESET": SubResource("Animation_tbgi4"),
+&"intro": SubResource("Animation_jyhfs")
+}
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_jyhfs")
@@ -21,98 +256,170 @@ script = ExtResource("1_jyhfs")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)
 
-[node name="Bg" type="Node2D" parent="."]
+[node name="GameIntro" type="Node2D" parent="."]
+
+[node name="IntroDream" type="Sprite2D" parent="GameIntro"]
+visible = false
+position = Vector2(895, 613.5)
+texture = ExtResource("2_jyhfs")
+region_enabled = true
+region_rect = Rect2(15.5, 119, 86, 113)
+
+[node name="IntroDream2" type="Sprite2D" parent="GameIntro"]
+visible = false
+position = Vector2(983, 568.5)
+texture = ExtResource("2_jyhfs")
+region_enabled = true
+region_rect = Rect2(85.5, 115, 157, 141)
+
+[node name="IntroDream3" type="Sprite2D" parent="GameIntro"]
+visible = false
+position = Vector2(1157, 412.5)
+texture = ExtResource("2_jyhfs")
+region_enabled = true
+region_rect = Rect2(244.5, 16, 353, 309)
+
+[node name="IntroDream4" type="Sprite2D" parent="GameIntro"]
+visible = false
+position = Vector2(1096, 413.5)
+texture = ExtResource("2_jyhfs")
+region_enabled = true
+region_rect = Rect2(19.5, 334, 104, 163)
+
+[node name="IntroDream5" type="Sprite2D" parent="GameIntro"]
+visible = false
+position = Vector2(1157, 412.5)
+texture = ExtResource("2_jyhfs")
+region_enabled = true
+region_rect = Rect2(116.5, 396, 46, 53)
+
+[node name="IntroDream6" type="Sprite2D" parent="GameIntro"]
+visible = false
+position = Vector2(1220, 412.5)
+texture = ExtResource("2_jyhfs")
+region_enabled = true
+region_rect = Rect2(167.5, 347, 56, 138)
+
+[node name="IntroDream7" type="Sprite2D" parent="GameIntro"]
+visible = false
+position = Vector2(1157, 412.5)
+texture = ExtResource("2_jyhfs")
+region_enabled = true
+region_rect = Rect2(218.5, 365, 94, 79)
+
+[node name="IntroDream8" type="Sprite2D" parent="GameIntro"]
+visible = false
+position = Vector2(1157, 412.5)
+texture = ExtResource("2_jyhfs")
+region_enabled = true
+region_rect = Rect2(317.5, 317, 236, 168)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameIntro/IntroDream8"]
+libraries = {
+&"": SubResource("AnimationLibrary_tipki")
+}
+autoplay = "new_animation"
+
+[node name="Player" parent="GameIntro" instance=ExtResource("1_o5qli")]
+position = Vector2(779, 768)
+can_be_controlled = false
+
+[node name="Eyes" parent="GameIntro/Player/Assets/Eyes" index="0"]
+visible = false
+frame = 4
+
+[node name="EyesSocketRage4" type="Sprite2D" parent="GameIntro/Player/Assets/Eyes" index="1"]
+position = Vector2(11, -3.5)
+texture = ExtResource("4_tbgi4")
+region_enabled = true
+region_rect = Rect2(0, 0, 40.5, 55)
+
+[node name="EyesSocketRage5" type="Sprite2D" parent="GameIntro/Player/Assets/Eyes" index="2"]
+position = Vector2(-18, -3.5)
+texture = ExtResource("4_tbgi4")
+region_enabled = true
+region_rect = Rect2(40.5, 0, 34, 55)
+
+[node name="EyesLid" parent="GameIntro/Player/Assets/Eyes" index="3"]
+position = Vector2(0, 5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameIntro"]
+libraries = {
+&"": SubResource("AnimationLibrary_tefeu")
+}
+
+[node name="Bg" type="Node2D" parent="GameIntro"]
 z_index = -1
 
-[node name="ColorRect" type="ColorRect" parent="Bg"]
-offset_left = -8.0
-offset_top = -1.0
-offset_right = 1928.0
-offset_bottom = 1091.0
-color = Color(0.419813, 0.419813, 0.419813, 1)
-metadata/_edit_lock_ = true
+[node name="ColorRect" type="ColorRect" parent="GameIntro/Bg"]
+offset_right = 1937.0
+offset_bottom = 1116.0
+color = Color(0.654902, 0.654902, 0.654902, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="Bg"]
-offset_left = -8.0
-offset_top = -1.0
-offset_right = 51.0
-offset_bottom = 1064.0
+[node name="GameWin" type="Node2D" parent="."]
+z_index = 5
+
+[node name="IntroDream8" type="Sprite2D" parent="GameWin"]
+position = Vector2(870, 543)
+scale = Vector2(2.58631, 2.58631)
+texture = ExtResource("2_jyhfs")
+region_enabled = true
+region_rect = Rect2(317.5, 317, 236, 168)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameWin/IntroDream8"]
+libraries = {
+&"": SubResource("AnimationLibrary_tipki")
+}
+autoplay = "new_animation"
+
+[node name="Bg" type="Node2D" parent="GameWin"]
+z_index = -1
+
+[node name="ColorRect" type="ColorRect" parent="GameWin/Bg"]
+offset_right = 1937.0
+offset_bottom = 1116.0
+color = Color(0.654902, 0.654902, 0.654902, 1)
+
+[node name="Label" type="Label" parent="GameWin"]
+offset_left = 787.0
+offset_top = 753.0
+offset_right = 1174.0
+offset_bottom = 890.0
+theme_override_font_sizes/font_size = 100
+text = "The end"
+
+[node name="Fg" type="Node2D" parent="."]
+z_index = 7
+position = Vector2(2004, 16)
+
+[node name="Fade" type="ColorRect" parent="Fg"]
+offset_left = -2004.0
+offset_top = -16.0
+offset_right = -61.0
+offset_bottom = 1083.0
 color = Color(0, 0, 0, 1)
+script = ExtResource("5_tbgi4")
 
-[node name="ColorRect3" type="ColorRect" parent="Bg"]
-offset_left = 1863.0
-offset_top = -1.0
-offset_right = 1922.0
-offset_bottom = 1104.0
-color = Color(0, 0, 0, 1)
+[node name="Controls_Label" type="Label" parent="Fg"]
+offset_left = -1277.0
+offset_top = 392.0
+offset_right = -796.0
+offset_bottom = 605.0
+theme_override_font_sizes/font_size = 50
+text = "Arrow Keys
+Hold A 
+Space"
 
-[node name="ColorRect5" type="ColorRect" parent="Bg"]
-offset_left = 855.0
-offset_top = 1026.0
-offset_right = 914.0
-offset_bottom = 1895.0
-rotation = 1.5708
-color = Color(0, 0, 0, 1)
+[node name="Controls_Label2" type="Label" parent="Fg/Controls_Label"]
+layout_mode = 0
+offset_left = 289.0
+offset_right = 770.0
+offset_bottom = 213.0
+theme_override_font_sizes/font_size = 50
+text = "to Move
+to Speak
+to Bow"
 
-[node name="ColorRect7" type="ColorRect" parent="Bg"]
-offset_left = 1924.0
-offset_top = 1026.0
-offset_right = 1983.0
-offset_bottom = 1895.0
-rotation = 1.5708
-color = Color(0, 0, 0, 1)
+[connection signal="animation_finished" from="GameIntro/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 
-[node name="ColorRect8" type="ColorRect" parent="Bg"]
-offset_left = 1924.0
-offset_top = 1026.0
-offset_right = 1983.0
-offset_bottom = 1895.0
-rotation = 1.5708
-color = Color(0, 0, 0, 1)
-
-[node name="ColorRect6" type="ColorRect" parent="Bg"]
-offset_left = 1901.0
-offset_top = -3.0
-offset_right = 1960.0
-offset_bottom = 1885.0
-rotation = 1.57081
-color = Color(0, 0, 0, 1)
-
-[node name="Bg2" type="Sprite2D" parent="Bg"]
-modulate = Color(0.654232, 0.654232, 0.654232, 1)
-position = Vector2(942, 550)
-texture = ExtResource("2_0wfyh")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Bg"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bg/StaticBody2D"]
-position = Vector2(19.5, 535)
-shape = SubResource("RectangleShape2D_o5qli")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Bg/StaticBody2D"]
-position = Vector2(1888, 542)
-shape = SubResource("RectangleShape2D_o5qli")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Bg/StaticBody2D"]
-position = Vector2(950.25, 28.0013)
-rotation = -1.57079
-shape = SubResource("RectangleShape2D_0wfyh")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Bg/StaticBody2D"]
-position = Vector2(419.066, 1049)
-rotation = -1.57079
-shape = SubResource("RectangleShape2D_sugp2")
-
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="Bg/StaticBody2D"]
-position = Vector2(1488, 1051.13)
-rotation = -1.57079
-shape = SubResource("RectangleShape2D_sugp2")
-
-[node name="DialogueManager" type="Node2D" parent="."]
-script = ExtResource("3_tbgi4")
-
-[node name="Player" parent="DialogueManager" instance=ExtResource("1_o5qli")]
-position = Vector2(842, 788)
-
-[node name="ShopKeeper" parent="DialogueManager" instance=ExtResource("2_sugp2")]
-position = Vector2(639, 389)
+[editable path="GameIntro/Player"]

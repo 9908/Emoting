@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://1j3s14q2krsk"]
+[gd_scene load_steps=36 format=3 uid="uid://1j3s14q2krsk"]
 
 [ext_resource type="Script" uid="uid://dcadknb4s52le" path="res://scenes/characters/character.gd" id="1_8yvht"]
 [ext_resource type="Texture2D" uid="uid://coesy0rw62gci" path="res://assets/player_bow1.png" id="3_d2wvv"]
@@ -18,6 +18,8 @@
 [ext_resource type="Texture2D" uid="uid://bivvm1pu0jfeh" path="res://assets/player_mouth2.png" id="12_oprun"]
 [ext_resource type="Script" uid="uid://d1jb1rqgfh265" path="res://scenes/characters/look_at.gd" id="13_50cep"]
 [ext_resource type="Texture2D" uid="uid://dwyg2puo2b1xn" path="res://assets/player_mouth3.png" id="13_a8ls1"]
+[ext_resource type="Texture2D" uid="uid://c4ubg2jfqouqg" path="res://assets/eyes_socket_happy.png" id="13_l5qi7"]
+[ext_resource type="Texture2D" uid="uid://44viuyin46e2" path="res://assets/eyes_socket_happy2.png" id="14_csyag"]
 [ext_resource type="Script" uid="uid://bmu41n1pf1wc0" path="res://scenes/characters/speak.gd" id="19_vovfy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3vyb7"]
@@ -80,6 +82,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_l5qi7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_csyag")
+}],
+"loop": true,
+"name": &"happy",
 "speed": 5.0
 }]
 
@@ -320,6 +333,45 @@ _data = {
 &"Walk": SubResource("Animation_smehm")
 }
 
+[sub_resource type="Animation" id="Animation_hgoxq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Assets:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8gu8h"]
+resource_name = "about_to_rage"
+length = 0.2
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Assets:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ov24f"]
+_data = {
+&"RESET": SubResource("Animation_hgoxq"),
+&"about_to_rage": SubResource("Animation_8gu8h")
+}
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_8yvht"]
 radius = 408.075
 
@@ -373,6 +425,11 @@ script = ExtResource("9_ur7pv")
 root_node = NodePath("../../Assets")
 libraries = {
 &"": SubResource("AnimationLibrary_fjrip")
+}
+
+[node name="Vibrate" type="AnimationPlayer" parent="AnimationDirector"]
+libraries = {
+&"": SubResource("AnimationLibrary_ov24f")
 }
 
 [node name="LookAt" type="Node2D" parent="."]

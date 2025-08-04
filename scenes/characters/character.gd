@@ -8,6 +8,7 @@ class_name Chara
 
 signal start_speaking
 signal stop_speaking
+signal bowed
 
 func _on_detect_nearby_body_entered(body: Node2D) -> void:
 	if body.is_in_group("chara"):

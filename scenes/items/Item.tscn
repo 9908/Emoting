@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://cfkjt0m48xmkv"]
+
+[ext_resource type="Texture2D" uid="uid://iyxr6avyh384" path="res://assets/items.png" id="1_5uh1b"]
+[ext_resource type="Script" uid="uid://ds61owsdudbuf" path="res://scenes/items/item.gd" id="1_iw0db"]
+[ext_resource type="Texture2D" uid="uid://bo51yxmmko4kq" path="res://assets/player_mouth1.png" id="3_we3um"]
+
+[sub_resource type="Curve" id="Curve_we3um"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.588235, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ycbtm"]
+curve = SubResource("Curve_we3um")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ycbtm"]
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 51.72
+initial_velocity_max = 247.12
+gravity = Vector3(0, 0, 0)
+damping_min = 19.54
+damping_max = 49.425
+scale_min = 0.5
+scale_max = 2.0
+alpha_curve = SubResource("CurveTexture_ycbtm")
+
+[node name="Item" type="Node2D"]
+script = ExtResource("1_iw0db")
+
+[node name="Items" type="Sprite2D" parent="."]
+position = Vector2(3, -4)
+rotation = -1.5708
+texture = ExtResource("1_5uh1b")
+region_enabled = true
+region_rect = Rect2(682.5, 11.5, 83, 197)
+
+[node name="Price" type="Node2D" parent="."]
+
+[node name="Ruby" type="Sprite2D" parent="Price"]
+position = Vector2(18, -69.9516)
+scale = Vector2(0.653226, 0.653226)
+texture = ExtResource("1_5uh1b")
+region_enabled = true
+region_rect = Rect2(9.5, 90.5, 62, 92)
+
+[node name="Label" type="Label" parent="Price"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -48.0
+offset_top = -78.9516
+offset_right = 2.0
+offset_bottom = -55.9516
+text = "999,99"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(1, 0.929412, 0, 1)
+position = Vector2(-2, -64)
+emitting = false
+amount = 20
+texture = ExtResource("3_we3um")
+lifetime = 3.0
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_ycbtm")

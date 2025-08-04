@@ -23,6 +23,9 @@ Globals="*res://Globals.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=3
+window/size/initial_position_type=3
+window/size/borderless=true
 
 [global_group]
 

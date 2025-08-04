@@ -4,6 +4,8 @@ extends Node2D
 @onready var assets: Node2D = $"../Assets"
 @onready var mouth: AnimatedSprite2D = $"../Assets/Eyes/Mouth"
 
+@onready var vibrate: AnimationPlayer = $Vibrate
+
 var playing_custom_animation: bool = false
 
 func _ready() -> void:
@@ -20,14 +22,21 @@ func _process(delta: float) -> void:
 	if not owner.velocity.x == 0 and owner.velocity.length() > 20:
 		assets.scale.x = -sign(owner.velocity.x)
 		
-	
-
+		
+func set_about_to_rage(new_val):
+	if new_val:
+		vibrate.play("about_to_rage")
+	else:
+		vibrate.play("RESET")
+		
+		
 func bow():
 	if playing_custom_animation: 
 		return
 	
 	playing_custom_animation = true
 	animation_player.play("Bow")
+	owner.bowed.emit()
 	
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
