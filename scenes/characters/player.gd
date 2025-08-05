@@ -1,8 +1,6 @@
 extends Chara
 
 @export var can_be_controlled: bool = true
-@export var speed: float = 400.0
-var bump_velocity: Vector2 = Vector2.ZERO
 @onready var victory: Node2D = $Victory
 @onready var broom_victory: Sprite2D = $Victory/BroomVictory
 
@@ -43,7 +41,7 @@ func _physics_process(delta: float) -> void:
 func get_broom():
 	victory.show()
 	can_be_controlled = false
-	look_at.look_up()
+	lookat.look_up()
 	await get_tree().create_timer(2.0).timeout
 	Globals.fade.fade(1.0, 3.0, Color.WHITE)
 	await get_tree().create_timer(3.0).timeout
@@ -51,5 +49,3 @@ func get_broom():
 	Globals.main.game_win.show()
 	
 	
-func bump(character):
-	bump_velocity = 1000*character.global_position.direction_to(global_position)

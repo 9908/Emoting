@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://8opw0gvipje3"]
+[gd_scene load_steps=13 format=3 uid="uid://8opw0gvipje3"]
 
 [ext_resource type="Script" uid="uid://dfbigpfb5pbbj" path="res://scenes/main.gd" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://rhckq1jb0n7y" path="res://scenes/characters/player.tscn" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://cgxg3porm0xdy" path="res://assets/intro_dream.png" id="2_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://6fbo5ww2tfxp" path="res://assets/eyes_socket_rage4.png" id="4_tbgi4"]
 [ext_resource type="Script" uid="uid://c14kpngbw0007" path="res://scenes/VFX/fade.gd" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://bbawbte1c621a" path="res://scenes/flash.gd" id="6_tefeu"]
 
 [sub_resource type="Animation" id="Animation_o6xl0"]
 length = 0.001
@@ -343,6 +344,9 @@ region_rect = Rect2(40.5, 0, 34, 55)
 [node name="EyesLid" parent="GameIntro/Player/Assets/Eyes" index="3"]
 position = Vector2(0, 5)
 
+[node name="DetectNearby" parent="GameIntro/Player" index="5"]
+visible = false
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GameIntro"]
 libraries = {
 &"": SubResource("AnimationLibrary_tefeu")
@@ -399,6 +403,14 @@ offset_right = -61.0
 offset_bottom = 1083.0
 color = Color(0, 0, 0, 1)
 script = ExtResource("5_tbgi4")
+
+[node name="Flash" type="ColorRect" parent="Fg"]
+offset_left = -2004.0
+offset_top = -16.0
+offset_right = -61.0
+offset_bottom = 1083.0
+color = Color(0.933333, 0, 0, 1)
+script = ExtResource("6_tefeu")
 
 [node name="Controls_Label" type="Label" parent="Fg"]
 offset_left = -1277.0

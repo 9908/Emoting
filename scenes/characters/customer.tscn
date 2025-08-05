@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://dl6qa17kkf0dy"]
+
+[ext_resource type="PackedScene" uid="uid://1j3s14q2krsk" path="res://scenes/characters/character.tscn" id="1_mxs21"]
+[ext_resource type="Script" uid="uid://be35yxw37phsg" path="res://scenes/characters/customer.gd" id="2_1xkll"]
+[ext_resource type="Texture2D" uid="uid://dgjanu6tes8xn" path="res://assets/shopkeeper_bow1.png" id="3_6k51k"]
+[ext_resource type="Texture2D" uid="uid://dgd2i5pjw2oll" path="res://assets/shopkeeper_bow2.png" id="4_ia26v"]
+[ext_resource type="Texture2D" uid="uid://jpux6ub0ihww" path="res://assets/shopkeeper_idle1.png" id="5_71146"]
+[ext_resource type="Texture2D" uid="uid://dmca53limqmtq" path="res://assets/shopkeeper_idle2.png" id="6_t3j0p"]
+[ext_resource type="Texture2D" uid="uid://buupnoa02nc7r" path="res://assets/shopkeeper_walk1.png" id="7_7qhdw"]
+[ext_resource type="Texture2D" uid="uid://dy1xp3envm4eh" path="res://assets/shopkeeper_walk2.png" id="8_8cm6p"]
+[ext_resource type="Script" uid="uid://kbg67riqx4gt" path="res://scenes/characters/anger_level.gd" id="9_1nfc8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xlntm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6k51k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ia26v")
+}],
+"loop": true,
+"name": &"bow",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_71146")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_t3j0p")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_7qhdw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_8cm6p")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="Customer" instance=ExtResource("1_mxs21")]
+collision_layer = 0
+script = ExtResource("2_1xkll")
+
+[node name="Body" parent="Assets" index="0"]
+sprite_frames = SubResource("SpriteFrames_xlntm")
+
+[node name="AngerLevel" type="Node2D" parent="." index="6"]
+script = ExtResource("9_1nfc8")
+
+[node name="ChillTimer" type="Timer" parent="AngerLevel" index="0"]
+one_shot = true
+
+[connection signal="timeout" from="AngerLevel/ChillTimer" to="AngerLevel" method="_on_chill_timer_timeout"]
+[connection signal="got_interrupted" from="Speak" to="AngerLevel" method="_on_speak_got_interrupted"]

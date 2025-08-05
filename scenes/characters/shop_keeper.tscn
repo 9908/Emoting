@@ -46,7 +46,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="ShopKeeper" instance=ExtResource("1_vduqe")]
+[node name="ShopKeeper" groups=["shop_keeper"] instance=ExtResource("1_vduqe")]
 script = ExtResource("2_bp5gg")
 
 [node name="Assets" parent="." index="2"]

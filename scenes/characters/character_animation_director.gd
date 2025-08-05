@@ -28,8 +28,8 @@ func set_about_to_rage(new_val):
 		vibrate.play("about_to_rage")
 	else:
 		vibrate.play("RESET")
-		
-		
+
+	
 func bow():
 	if playing_custom_animation: 
 		return
@@ -37,8 +37,24 @@ func bow():
 	playing_custom_animation = true
 	animation_player.play("Bow")
 	owner.bowed.emit()
+
+
+func bow_start():
+	if playing_custom_animation: 
+		return
+	
+	playing_custom_animation = true
+	animation_player.play("BowStart")
+	owner.bowed.emit()
+	
+	
+func bow_end():
+	if not playing_custom_animation: 
+		return
+	
+	animation_player.play("BowEnd")
 	
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	if anim_name == "Bow":
+	if anim_name == "Bow" or anim_name == "BowEnd":
 		playing_custom_animation = false

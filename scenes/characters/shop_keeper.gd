@@ -8,5 +8,4 @@ func _ready() -> void:
 
 func bumped_by(body):
 	body.bump(self)
-	anger_level.add_anger_level()
 	speak.interrupted()

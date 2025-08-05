@@ -10,6 +10,7 @@ var happy: bool = false
 
 func add_anger_level():
 	anger_level += 1.0
+	Globals.flash.flash()
 	set_eye_color()
 	if anger_level >= MAX_ANGER_LEVEL:
 		rage()
