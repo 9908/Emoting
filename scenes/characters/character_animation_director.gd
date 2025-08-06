@@ -7,6 +7,7 @@ extends Node2D
 @onready var vibrate: AnimationPlayer = $Vibrate
 
 var playing_custom_animation: bool = false
+@export var facing_scale_factor: float = 1.0
 
 func _ready() -> void:
 	mouth.hide()
@@ -20,7 +21,7 @@ func _process(delta: float) -> void:
 			animation_player.play("Walk")
 	
 	if not owner.velocity.x == 0 and owner.velocity.length() > 20:
-		assets.scale.x = -sign(owner.velocity.x)
+		assets.scale.x = -facing_scale_factor*sign(owner.velocity.x)
 		
 		
 func set_about_to_rage(new_val):

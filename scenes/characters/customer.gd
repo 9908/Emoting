@@ -3,7 +3,17 @@ extends Chara
 var can_greet_player: bool = false
 var greeting_player: bool = false
 var cancel_walk_routine: bool = false
+@onready var debug: Sprite2D = $Debug
+var has_talked_to_shopkeeper: bool = false
 
+func _physics_process(delta):
+	super(delta)
+	if cancel_walk_routine:
+		debug.modulate = Color.RED
+	else:
+		debug.modulate = Color.GREEN
+		
+		
 func _on_detect_nearby_body_entered(body: Node2D) -> void:
 	if body.is_in_group("chara"):
 		lookat.set_target(body)

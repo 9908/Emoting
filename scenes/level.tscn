@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://beoidkvyj72ff"]
+[gd_scene load_steps=19 format=3 uid="uid://beoidkvyj72ff"]
 
 [ext_resource type="Texture2D" uid="uid://tsr81fuppmev" path="res://assets/bg.png" id="1_ppgk2"]
 [ext_resource type="Script" uid="uid://nved5dnjshjq" path="res://scenes/dialogue_manager.gd" id="2_2r41h"]
 [ext_resource type="PackedScene" uid="uid://rhckq1jb0n7y" path="res://scenes/characters/player.tscn" id="3_klq6b"]
 [ext_resource type="PackedScene" uid="uid://h5samxaffugb" path="res://scenes/characters/shop_keeper.tscn" id="4_b121j"]
 [ext_resource type="PackedScene" uid="uid://cfkjt0m48xmkv" path="res://scenes/items/Item.tscn" id="5_8c41q"]
+[ext_resource type="Script" uid="uid://cxtaicd7jra3d" path="res://scenes/shop_keeper_target.gd" id="5_olg7q"]
 [ext_resource type="Texture2D" uid="uid://iyxr6avyh384" path="res://assets/items.png" id="6_2r41h"]
 [ext_resource type="Script" uid="uid://be77yqt7drkv5" path="res://scenes/VFX/current_money.gd" id="6_klq6b"]
 [ext_resource type="Script" uid="uid://c7c0aa8t8uulu" path="res://scenes/customer_manager.gd" id="8_8c41q"]
@@ -214,18 +215,16 @@ position = Vector2(842, 788)
 [node name="ShopKeeper" parent="DialogueManager" instance=ExtResource("4_b121j")]
 position = Vector2(639, 389)
 
+[node name="ShopKeeperTarget" type="Marker2D" parent="."]
+position = Vector2(640, 390)
+script = ExtResource("5_olg7q")
+
 [node name="Broom" parent="." instance=ExtResource("5_8c41q")]
 position = Vector2(1192, 440)
 
 [node name="CurrentMoney" type="Node2D" parent="."]
 z_index = 1
 script = ExtResource("6_klq6b")
-
-[node name="Items" type="Sprite2D" parent="CurrentMoney"]
-position = Vector2(1782, 999.5)
-texture = ExtResource("6_2r41h")
-region_enabled = true
-region_rect = Rect2(12.5, 97.5, 68, 95)
 
 [node name="Label" type="Label" parent="CurrentMoney"]
 modulate = Color(0, 0, 0, 1)
@@ -236,6 +235,12 @@ offset_bottom = 1028.5
 pivot_offset = Vector2(13, 35)
 theme_override_font_sizes/font_size = 50
 text = "0"
+
+[node name="Items" type="Sprite2D" parent="CurrentMoney/Label"]
+position = Vector2(-27, 40)
+texture = ExtResource("6_2r41h")
+region_enabled = true
+region_rect = Rect2(12.5, 97.5, 68, 95)
 
 [node name="FlashNoMoney" type="AnimationPlayer" parent="CurrentMoney"]
 libraries = {

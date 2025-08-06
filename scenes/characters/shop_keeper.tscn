@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://h5samxaffugb"]
+[gd_scene load_steps=12 format=3 uid="uid://h5samxaffugb"]
 
 [ext_resource type="PackedScene" uid="uid://1j3s14q2krsk" path="res://scenes/characters/character.tscn" id="1_vduqe"]
 [ext_resource type="Script" uid="uid://cnygi5rps7te3" path="res://scenes/characters/shop_keeper.gd" id="2_bp5gg"]
@@ -46,6 +46,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8gu8h"]
+size = Vector2(194, 267)
+
 [node name="ShopKeeper" groups=["shop_keeper"] instance=ExtResource("1_vduqe")]
 script = ExtResource("2_bp5gg")
 
@@ -55,11 +58,21 @@ scale = Vector2(2, 1.5)
 [node name="Body" parent="Assets" index="0"]
 sprite_frames = SubResource("SpriteFrames_xlntm")
 
+[node name="AnimationDirector" parent="." index="3"]
+facing_scale_factor = 2.0
+
 [node name="AngerLevel" type="Node2D" parent="." index="6"]
 script = ExtResource("8_h34lu")
 
 [node name="ChillTimer" type="Timer" parent="AngerLevel" index="0"]
 one_shot = true
 
+[node name="CustomerDetector" type="Area2D" parent="." index="9"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CustomerDetector" index="0"]
+position = Vector2(4, 69.5)
+shape = SubResource("RectangleShape2D_8gu8h")
+
 [connection signal="timeout" from="AngerLevel/ChillTimer" to="AngerLevel" method="_on_chill_timer_timeout"]
 [connection signal="got_interrupted" from="Speak" to="AngerLevel" method="_on_speak_got_interrupted"]
+[connection signal="area_entered" from="CustomerDetector" to="." method="_on_customer_detector_area_entered"]

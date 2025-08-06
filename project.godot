@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="GMTK-Loop"
+config/name="Emoting"
 run/main_scene="uid://8opw0gvipje3"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
@@ -32,6 +32,7 @@ window/size/borderless=true
 chara=""
 player=""
 shop_keeper=""
+customer=""
 
 [input]
 

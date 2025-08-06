@@ -14,17 +14,21 @@ signal start_speaking
 signal stop_speaking
 signal bowed
 signal reached_target
+signal bumped
 
 var target_pos = null
 
 
 func walk_to(new_pos: Node2D):
+	if global_position.distance_squared_to(new_pos.global_position) < 50.0:
+		return
 	target_pos = new_pos
 	
 	
 func bump(character):
 	bump_velocity = 700*character.global_position.direction_to(global_position)
-
+	bumped.emit()
+	
 
 func _physics_process(delta: float) -> void:
 	var direction = Vector2.ZERO

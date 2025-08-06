@@ -6,19 +6,20 @@ var customer_scn: PackedScene = preload("res://scenes/characters/customer.tscn")
 @onready var entry: Marker2D = $Entry
 @onready var entry_entrance: Marker2D = $EntryEntrance
 var player_bowed: bool = false
-var customer_number_before_break: int = 5
+var customer_number_before_break: int = 1
+
+func _ready() -> void:
+	Globals.customers = customers_list
+	Globals.customer_manager = self
+
 
 func start():
-	pop_customer()
-	
-	await get_tree().create_timer(25.0).timeout
-	
 	while true:
 		pop_customer()
-		var waiting_time = randf_range(9.0, 14.0)
+		var waiting_time = randf_range(11.0, 16.0)
 		if customer_number_before_break == 0:
-			customer_number_before_break = randi_range(3, 5)
-			waiting_time = 40.0
+			customer_number_before_break = 3
+			waiting_time = 60.0
 		await get_tree().create_timer(waiting_time).timeout
 		
 
@@ -38,33 +39,30 @@ func pop_customer():
 	
 
 func walk_routine(new_customer):
+	new_customer.lookat.look_ahead = true
 	for i in range(0, randi_range(2,5)):
-		if new_customer.cancel_walk_routine: 
-			new_customer.cancel_walk_routine = false
-			return
-		new_customer.walk_to(customer_positions.get_child(randi_range(0,customer_positions.get_child_count()-1)))
+		if new_customer.cancel_walk_routine: return
+		#print("WALK --- A " + str(i))
+		var new_position = customer_positions.get_child(randi_range(0,customer_positions.get_child_count()-1))
+		while new_position.global_position.distance_squared_to(new_customer.global_position) < 50.0:
+			new_position = customer_positions.get_child(randi_range(0,customer_positions.get_child_count()-1))
+		new_customer.walk_to(new_position)
 		
 		await new_customer.reached_target
-		if new_customer.cancel_walk_routine: 
-			new_customer.cancel_walk_routine = false
-			return
-		await get_tree().create_timer(randf_range(1.0,1.5)).timeout
+		if new_customer.cancel_walk_routine: return
+		await get_tree().create_timer(randf_range(1.0,3.2)).timeout
 		
-	if new_customer.cancel_walk_routine: 
-		new_customer.cancel_walk_routine = false
-		return
+	if new_customer.cancel_walk_routine: return
+	#print("WALK --- B ")
 	new_customer.walk_to(entry_entrance)
 	
 	await new_customer.reached_target
-	if new_customer.cancel_walk_routine: 
-		new_customer.cancel_walk_routine = false
-		return
+	if new_customer.cancel_walk_routine: return
 	
 	await get_tree().create_timer(randf_range(1.0,1.5)).timeout
-	if new_customer.cancel_walk_routine: 
-		new_customer.cancel_walk_routine = false
-		return
+	if new_customer.cancel_walk_routine: return
 		
+	#print("WALK --- C ")
 	new_customer.walk_to(entry)
 	
 	get_tree().create_tween().tween_property(new_customer, "modulate:a", 0.0, 2.0)
@@ -75,6 +73,7 @@ func walk_routine(new_customer):
 func cancel_walk_routine(customer):
 	customer.cancel_walk_routine = true
 	customer.reached_target.emit()
+	customer.lookat.look_ahead = false
 
 	
 func greet_player(customer):
@@ -107,6 +106,7 @@ func resume_walk(customer):
 	customer.greeting_player = false
 	customer.can_greet_player = false
 	customer.lookat.stop_face()
+	customer.lookat.look_ahead = true
 	await get_tree().create_timer(2.0).timeout
 	customer.cancel_walk_routine = false
 	walk_routine(customer)

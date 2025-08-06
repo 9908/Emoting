@@ -45,6 +45,7 @@ func player_stop_speak():
 
 
 func lower_price():
+	broom.show_price(true)
 	await get_tree().create_timer(1.0).timeout
 	broom.set_price(0.0)
 	
@@ -53,7 +54,7 @@ func player_bowed():
 	if not has_bowed:
 		has_bowed = true
 		await get_tree().create_timer(randf_range(1.2, 2.5)).timeout
-		shop_keeper.lookat.start_face(player, 2.0)
+		shop_keeper.lookat.start_face(player)
 		shop_keeper.animation_director.bow()
 	shop_keeper.anger_level.lower_anger_level()
 	
@@ -66,6 +67,7 @@ func shopkeeper_start_speak():
 		if not started_customers:
 			started_customers = true
 			await get_tree().create_timer(2.0).timeout
+			discussion_streak = 0
 			customers.start()
 			shop_keeper.anger_level.set_happy(false)
 	if discussion_streak == 4:

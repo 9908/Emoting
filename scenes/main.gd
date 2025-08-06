@@ -15,15 +15,15 @@ func _ready() -> void:
 	controls_label.hide()
 	game_win.hide()
 	
-	Globals.fade.fade(0, 1.0)
-	game_intro.queue_free()
-	level_in = level.instantiate()
-	add_child(level_in)
+	#Globals.fade.fade(0, 1.0)
+	#game_intro.queue_free()
+	#level_in = level.instantiate()
+	#add_child(level_in)
 	
-	#await get_tree().create_timer(1.0).timeout
-	#Globals.fade.fade(0, 2.0)
-	#await get_tree().create_timer(2.0).timeout
-	#animation_player.play("intro")
+	await get_tree().create_timer(1.0).timeout
+	Globals.fade.fade(0, 2.0)
+	await get_tree().create_timer(2.0).timeout
+	animation_player.play("intro")
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
@@ -39,6 +39,8 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 
 
 func game_over():
+	if not Globals.player.can_be_controlled:
+		return
 	Globals.player.can_be_controlled = false
 	gameover_in = gameover.instantiate()
 	add_child(gameover_in)
@@ -47,8 +49,10 @@ func game_over():
 	await get_tree().create_timer(2.5).timeout
 	Globals.fade.fade(1, 1.0)
 	await get_tree().create_timer(1.0).timeout
+	controls_label.show()
 	gameover_in.queue_free()
 	level_in = level.instantiate()
 	add_child(level_in)
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(2.5).timeout
 	Globals.fade.fade(0, 1.0)
+	controls_label.hide()
