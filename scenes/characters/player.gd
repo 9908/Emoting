@@ -8,6 +8,8 @@ extends Chara
 func _ready() -> void:
 	Globals.player = self
 	victory.hide()
+	# FLAG-SFX - REGi-SFX - stars
+	#FmodServer.play_one_shot("event:/wind")
 
 func _physics_process(delta: float) -> void:
 	var direction = Vector2.ZERO
