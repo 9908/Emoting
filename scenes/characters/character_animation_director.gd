@@ -3,6 +3,7 @@ extends Node2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var assets: Node2D = $"../Assets"
 @onready var mouth: AnimatedSprite2D = $"../Assets/Eyes/Mouth"
+@onready var eyes: AnimatedSprite2D = $"../Assets/Eyes/Eyes"
 
 @onready var vibrate: AnimationPlayer = $Vibrate
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://beoidkvyj72ff"]
+[gd_scene load_steps=20 format=3 uid="uid://beoidkvyj72ff"]
 
 [ext_resource type="Texture2D" uid="uid://tsr81fuppmev" path="res://assets/bg.png" id="1_ppgk2"]
 [ext_resource type="Script" uid="uid://nved5dnjshjq" path="res://scenes/dialogue_manager.gd" id="2_2r41h"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://iyxr6avyh384" path="res://assets/items.png" id="6_2r41h"]
 [ext_resource type="Script" uid="uid://be77yqt7drkv5" path="res://scenes/VFX/current_money.gd" id="6_klq6b"]
 [ext_resource type="Script" uid="uid://c7c0aa8t8uulu" path="res://scenes/customer_manager.gd" id="8_8c41q"]
+[ext_resource type="Texture2D" uid="uid://dwyg2puo2b1xn" path="res://assets/player_mouth3.png" id="10_olg7q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5qli"]
 size = Vector2(59, 1090)
@@ -37,7 +38,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 0, 0, 1)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -62,10 +63,10 @@ tracks/0/path = NodePath("Label:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.366667, 0.6, 1),
+"times": PackedFloat32Array(0.0333333, 0.366667, 0.6, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 1), Color(1, 0, 0, 1), Color(1, 0, 0, 1), Color(0, 0, 0, 1)]
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -87,7 +88,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2r41h"]
-size = Vector2(346, 232)
+size = Vector2(407, 299)
 
 [node name="Level" type="Node2D"]
 y_sort_enabled = true
@@ -211,9 +212,19 @@ script = ExtResource("2_2r41h")
 
 [node name="Player" parent="DialogueManager" instance=ExtResource("3_klq6b")]
 position = Vector2(842, 788)
+can_be_controlled = false
 
 [node name="ShopKeeper" parent="DialogueManager" instance=ExtResource("4_b121j")]
 position = Vector2(639, 389)
+
+[node name="Label" type="Label" parent="DialogueManager"]
+visible = false
+offset_left = 23.0
+offset_top = 29.0
+offset_right = 74.0
+offset_bottom = 52.0
+theme_override_font_sizes/font_size = 50
+text = "HELLO"
 
 [node name="ShopKeeperTarget" type="Marker2D" parent="."]
 position = Vector2(640, 390)
@@ -227,7 +238,6 @@ z_index = 1
 script = ExtResource("6_klq6b")
 
 [node name="Label" type="Label" parent="CurrentMoney"]
-modulate = Color(0, 0, 0, 1)
 offset_left = 1809.0
 offset_top = 959.5
 offset_right = 1849.0
@@ -242,6 +252,13 @@ texture = ExtResource("6_2r41h")
 region_enabled = true
 region_rect = Rect2(12.5, 97.5, 68, 95)
 
+[node name="PlayerMouth3" type="Sprite2D" parent="CurrentMoney/Label/Items"]
+modulate = Color(0.678431, 0.858824, 0.184314, 1)
+z_index = -1
+position = Vector2(2.00005, -1.50002)
+scale = Vector2(3.21875, 3.26724)
+texture = ExtResource("10_olg7q")
+
 [node name="FlashNoMoney" type="AnimationPlayer" parent="CurrentMoney"]
 libraries = {
 &"": SubResource("AnimationLibrary_b121j")
@@ -251,7 +268,7 @@ libraries = {
 position = Vector2(1232, 521)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CurrentMoney/Area2D"]
-position = Vector2(-40, -57)
+position = Vector2(-47, -18)
 shape = SubResource("RectangleShape2D_2r41h")
 
 [node name="Customers" type="Node2D" parent="."]
@@ -266,20 +283,20 @@ position = Vector2(906, 799)
 
 [node name="CustomerPositions" type="Node2D" parent="Customers"]
 
-[node name="Pos" type="Marker2D" parent="Customers/CustomerPositions"]
-position = Vector2(904, 611)
-
 [node name="Pos2" type="Marker2D" parent="Customers/CustomerPositions"]
-position = Vector2(413, 608)
+position = Vector2(412, 592)
+
+[node name="Pos6" type="Marker2D" parent="Customers/CustomerPositions"]
+position = Vector2(903, 592)
+
+[node name="Pos7" type="Marker2D" parent="Customers/CustomerPositions"]
+position = Vector2(1248, 592)
 
 [node name="Pos3" type="Marker2D" parent="Customers/CustomerPositions"]
 position = Vector2(413, 800)
 
 [node name="Pos4" type="Marker2D" parent="Customers/CustomerPositions"]
 position = Vector2(1394, 800)
-
-[node name="Pos5" type="Marker2D" parent="Customers/CustomerPositions"]
-position = Vector2(1248, 631)
 
 [node name="CustomersList" type="Node2D" parent="Customers"]
 y_sort_enabled = true

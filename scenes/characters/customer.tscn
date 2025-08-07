@@ -48,9 +48,9 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6k51k"]
-height = 108.0
+height = 40.0
 
-[node name="Customer" instance=ExtResource("1_mxs21")]
+[node name="Customer" groups=["customer"] instance=ExtResource("1_mxs21")]
 collision_layer = 0
 script = ExtResource("2_1xkll")
 
@@ -71,7 +71,7 @@ texture = ExtResource("10_6k51k")
 [node name="CustomerArea" type="Area2D" parent="." index="10" groups=["customer"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CustomerArea" index="0"]
-position = Vector2(0, -58)
+position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_6k51k")
 
 [connection signal="timeout" from="AngerLevel/ChillTimer" to="AngerLevel" method="_on_chill_timer_timeout"]

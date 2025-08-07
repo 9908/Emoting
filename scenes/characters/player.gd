@@ -29,13 +29,11 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-	if Input.is_action_pressed("ui_accept"):
+	if Input.is_action_pressed("bow"):
 		animation_director.bow()
 	
-	if Input.is_action_pressed("speak"):
-		speak.start_speak()
-	else:
-		speak.stop_speak()
+	if Input.is_action_just_pressed("speak"):
+		speak.start_speak(1.5)
 
 
 func get_broom():
@@ -47,5 +45,6 @@ func get_broom():
 	await get_tree().create_timer(3.0).timeout
 	Globals.fade.fade(0.0, 1.0, Color.WHITE)
 	Globals.main.game_win.show()
+	Globals.main.won_game = true
 	
 	

@@ -4,11 +4,13 @@ extends Node2D
 @onready var eyes_lid: Sprite2D = $"../Assets/Eyes/EyesLid"
 
 var anger_level: float = 0.0
-var MAX_ANGER_LEVEL: float = 5.0
+var MAX_ANGER_LEVEL: float = 2.0
 var happy: bool = false
 @onready var chill_timer: Timer = $ChillTimer
 
 func add_anger_level():
+	if Globals.main.won_game:
+		return
 	anger_level += 1.0
 	Globals.flash.flash()
 	set_eye_color()
@@ -26,7 +28,7 @@ func set_eye_color():
 	var modu_var = 1.0-anger_level/MAX_ANGER_LEVEL
 	eyes.modulate = Color.RED.lightened(modu_var)
 	eyes.frame = anger_level
-	chill_timer.start(4.5)
+	#chill_timer.start(4.5)
 
 	if anger_level == MAX_ANGER_LEVEL - 1:
 		owner.animation_director.set_about_to_rage(true)
@@ -36,6 +38,7 @@ func set_eye_color():
 
 func set_happy(new_val: bool):
 	if new_val:
+		lower_anger_level()
 		if happy:
 			eyes.frame = 1
 			eyes_lid.hide()
@@ -51,7 +54,7 @@ func set_happy(new_val: bool):
 		eyes.animation = "default"
 		eyes_lid.show()
 		eyes.position.y = 0
-		
+		set_eye_color()
 
 func rage():
 	Globals.main.game_over()

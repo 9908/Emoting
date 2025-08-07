@@ -9,6 +9,7 @@ var gameover = preload("res://scenes/gameover.tscn")
 
 var level_in
 var gameover_in
+var won_game: bool = false
 
 func _ready() -> void:
 	Globals.main = self
@@ -36,16 +37,21 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	await get_tree().create_timer(3.5).timeout
 	controls_label.hide()
 	Globals.fade.fade(0, 1.0)
+	Globals.player.can_be_controlled = true
 
 
 func game_over():
 	if not Globals.player.can_be_controlled:
 		return
+		
 	Globals.player.can_be_controlled = false
+	get_tree().create_tween().tween_property(Globals.shop_keeper, "global_position", Globals.player.global_position, 0.5)
+	await get_tree().create_timer(0.5).timeout
 	gameover_in = gameover.instantiate()
 	add_child(gameover_in)
 	await get_tree().create_timer(0.1).timeout
-	level_in.queue_free()
+	if is_instance_valid(level_in):
+		level_in.queue_free()
 	await get_tree().create_timer(2.5).timeout
 	Globals.fade.fade(1, 1.0)
 	await get_tree().create_timer(1.0).timeout
@@ -53,6 +59,7 @@ func game_over():
 	gameover_in.queue_free()
 	level_in = level.instantiate()
 	add_child(level_in)
-	await get_tree().create_timer(2.5).timeout
+	await get_tree().create_timer(1.8).timeout
 	Globals.fade.fade(0, 1.0)
 	controls_label.hide()
+	Globals.player.can_be_controlled = true

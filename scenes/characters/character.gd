@@ -6,6 +6,7 @@ class_name Chara
 @onready var speak: Node2D = $Speak
 @onready var animation_director: Node2D = $AnimationDirector
 @onready var detect_nearby: Area2D = $DetectNearby
+@onready var eyes: AnimatedSprite2D = $Assets/Eyes/Eyes
 
 @export var speed: float = 400.0
 var bump_velocity: Vector2 = Vector2.ZERO
@@ -18,6 +19,8 @@ signal bumped
 
 var target_pos = null
 
+var can_greet_player: bool = false
+var greeting_player: bool = false
 
 func walk_to(new_pos: Node2D):
 	if global_position.distance_squared_to(new_pos.global_position) < 50.0:

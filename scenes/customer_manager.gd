@@ -16,10 +16,10 @@ func _ready() -> void:
 func start():
 	while true:
 		pop_customer()
-		var waiting_time = randf_range(11.0, 16.0)
+		var waiting_time = 11.0
 		if customer_number_before_break == 0:
-			customer_number_before_break = 3
-			waiting_time = 60.0
+			customer_number_before_break = 1
+			waiting_time = 45.0
 		await get_tree().create_timer(waiting_time).timeout
 		
 
@@ -40,7 +40,7 @@ func pop_customer():
 
 func walk_routine(new_customer):
 	new_customer.lookat.look_ahead = true
-	for i in range(0, randi_range(2,5)):
+	for i in 3:
 		if new_customer.cancel_walk_routine: return
 		#print("WALK --- A " + str(i))
 		var new_position = customer_positions.get_child(randi_range(0,customer_positions.get_child_count()-1))
@@ -50,7 +50,7 @@ func walk_routine(new_customer):
 		
 		await new_customer.reached_target
 		if new_customer.cancel_walk_routine: return
-		await get_tree().create_timer(randf_range(1.0,3.2)).timeout
+		await get_tree().create_timer(2.0).timeout
 		
 	if new_customer.cancel_walk_routine: return
 	#print("WALK --- B ")
@@ -59,7 +59,7 @@ func walk_routine(new_customer):
 	await new_customer.reached_target
 	if new_customer.cancel_walk_routine: return
 	
-	await get_tree().create_timer(randf_range(1.0,1.5)).timeout
+	await get_tree().create_timer(1.0).timeout
 	if new_customer.cancel_walk_routine: return
 		
 	#print("WALK --- C ")
@@ -78,36 +78,52 @@ func cancel_walk_routine(customer):
 	
 func greet_player(customer):
 	customer.greeting_player = true
-	cancel_walk_routine(customer)
+	if customer.is_in_group("customer"):
+		cancel_walk_routine(customer)
 	customer.lookat.start_face(Globals.player)
 	customer.animation_director.bow_start()
 	customer.stop()
-	customer.speak.start_speak(randf_range(2.0, 4.0))
+	#customer.speak.start_speak(randf_range(2.0, 4.0))
 	start_fail_timer(customer)
 	player_bowed = false
 	
 	await Globals.player.bowed
+	await get_tree().create_timer(1.0).timeout
 	if is_instance_valid(customer):
 		if customer.greeting_player:
 			player_bowed = true
+			customer.eyes.animation = "happy"
+			customer.eyes.frame = 1
+			customer.eyes_lid.hide()
 			resume_walk(customer)
+			if customer == Globals.shop_keeper:
+				Globals.shop_keeper.can_greet_player = false
 	
 
 func start_fail_timer(customer):
 	await get_tree().create_timer(3.25).timeout
 	if not player_bowed:
 		Globals.shop_keeper.speak.interrupted()
-		customer.speak.interrupted()
+		#customer.speak.interrupted()
 		resume_walk(customer)
+		if customer == Globals.shop_keeper:
+			await get_tree().create_timer(2.0).timeout
+			if not customer.greeting_player:
+				greet_player(Globals.shop_keeper)
 
 
 func resume_walk(customer):
 	customer.animation_director.bow_end()
 	customer.greeting_player = false
-	customer.can_greet_player = false
-	customer.lookat.stop_face()
-	customer.lookat.look_ahead = true
-	await get_tree().create_timer(2.0).timeout
-	customer.cancel_walk_routine = false
-	walk_routine(customer)
-		
+	if customer.is_in_group("customer"):
+		customer.can_greet_player = false
+		customer.lookat.stop_face()
+		customer.lookat.look_ahead = true
+	await get_tree().create_timer(1.0).timeout
+	customer.eyes.animation = "default"
+	customer.eyes_lid.show()
+	await get_tree().create_timer(1.0).timeout
+	if customer.is_in_group("customer"):
+		customer.cancel_walk_routine = false
+		walk_routine(customer)
+			

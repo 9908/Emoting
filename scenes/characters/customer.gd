@@ -1,7 +1,5 @@
 extends Chara
 
-var can_greet_player: bool = false
-var greeting_player: bool = false
 var cancel_walk_routine: bool = false
 @onready var debug: Sprite2D = $Debug
 var has_talked_to_shopkeeper: bool = false
